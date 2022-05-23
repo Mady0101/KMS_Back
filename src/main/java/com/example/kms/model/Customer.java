@@ -3,6 +3,7 @@ package com.example.kms.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity  // This tells Hibernate to make a table out of this class */
@@ -10,7 +11,8 @@ public class Customer {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private UUID id;
+
 
     @JsonProperty("id")
     private int customerId;
