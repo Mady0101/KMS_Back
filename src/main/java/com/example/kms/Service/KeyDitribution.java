@@ -1,6 +1,6 @@
 package com.example.kms.Service;
 
-public class KeyService {
+public class KeyDitribution {
 
 
 }
