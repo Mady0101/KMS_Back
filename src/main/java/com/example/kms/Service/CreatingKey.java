@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 public class CreatingKey {
 
-    public class Generatingkey {
+
 
         KeyGenerator keyGenerator;
 
@@ -34,4 +34,4 @@ public class CreatingKey {
 
 
 
-}
+
