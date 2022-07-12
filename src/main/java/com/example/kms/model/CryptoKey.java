@@ -1,5 +1,7 @@
  package com.example.kms.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.persistence.Entity;
@@ -11,17 +13,40 @@ import java.util.UUID;
 
 
 @Entity
-public class Key {
+public class CryptoKey {
+    public CryptoKey() {
+    }
 
-        @Id
+    @Id
         private UUID KeyId;
+        @JsonProperty("keyName")
         private String KeyName;
+        @JsonProperty("aliases")
         private String Aliases;
         private Date CreationDate;
+        @JsonProperty("status")
         private String Status;
 
+        private SecretKey generatedKey;
 
-        public UUID getKeyId () {
+
+    public CryptoKey(String keyName, String aliases, Date creationDate, String status, SecretKey generatedKey) {
+        KeyName = keyName;
+        Aliases = aliases;
+        CreationDate = creationDate;
+        Status = status;
+        this.generatedKey = generatedKey;
+    }
+
+    public SecretKey getGeneratedKey() {
+        return generatedKey;
+    }
+
+    public void setGeneratedKey(SecretKey generatedKey) {
+        this.generatedKey = generatedKey;
+    }
+
+    public UUID getKeyId () {
             return KeyId;
         }
 
@@ -82,6 +107,17 @@ public class Key {
             Status = status;
         }
 
+    @Override
+    public String toString() {
+        return "CryptoKey{" +
+                "KeyId=" + KeyId +
+                ", KeyName='" + KeyName + '\'' +
+                ", Aliases='" + Aliases + '\'' +
+                ", CreationDate=" + CreationDate +
+                ", Status='" + Status + '\'' +
+                ", generatedKey=" + generatedKey +
+                '}';
     }
+}
 
 

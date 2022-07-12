@@ -1,4 +1,4 @@
-package com.example.kms.model;
+package com.example.kms.Service;
 
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
