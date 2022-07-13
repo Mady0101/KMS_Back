@@ -20,6 +20,7 @@ public class TwilioSendSmsService {
 	    @Value("${twilio.trialNumber}")
 	    private String FROM_NUMBER;
 
+
 	    public void send(String to , String msg) {
 	        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
