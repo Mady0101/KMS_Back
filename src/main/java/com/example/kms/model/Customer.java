@@ -3,38 +3,47 @@ package com.example.kms.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+
+import java.util.Set;
 import java.util.UUID;
 
 
 @Entity  // This tells Hibernate to make a table out of this class */
+@Table(name = "CUSTOMER")
 public class Customer {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "customer_id", nullable = false)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
 
 
-    @JsonProperty("id")
-    private int customerId;
-
     @JsonProperty("firstName")
     private String customerFirstName;
+    
+    
     @JsonProperty("lastName")
-
     private String customerLastName;
+    
+    
     @JsonProperty("email")
     private String customerEmail;
+    
+    
+    @OneToMany(mappedBy="customer")
+    private Set<CryptoKey> cryptoKeys;
 
+    
+    
 
-    public int getCustomerId() {
-        return customerId;
-    }
+    public UUID getId() {
+		return id;
+	}
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    public String getCustomerFirstName() {
+	public String getCustomerFirstName() {
         return customerFirstName;
     }
 

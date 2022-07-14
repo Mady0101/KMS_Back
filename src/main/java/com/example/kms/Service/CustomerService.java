@@ -1,18 +1,21 @@
 package com.example.kms.Service;
 
+import com.example.kms.dao.CustomerRepository;
 import com.example.kms.model.Customer;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 @Service
 public class CustomerService {
-    private int customerIdCount =1;
+    /*private UUID customerIdCount =1;
     private List <Customer> customerList= new ArrayList<>() ;
     public Customer addCustomer(@NotNull Customer customer) {
-        customer.setCustomerId(customerIdCount);
+        customer.setId(customerIdCount);
         customerList.add(customer) ;
         customerIdCount++ ;
         return customer ;
@@ -43,5 +46,36 @@ public class CustomerService {
         customerList.stream().forEach(c->{if(c.getCustomerId() == customerID ) {
             customerList.remove(c) ; }
         });
+    }*/
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	
+	public Customer addCustomer(@NotNull Customer customer) {
+       customerRepository.save(customer);
+       return customer;
     }
+	
+	 public List<Customer> getCustomerList() {
+        return customerRepository.findAll();
+    }
+	 
+	public Customer getCustomer (UUID id ) {
+		return customerRepository.getById(id);
+	}
+	
+	public Customer updateCustomer (@NotNull Customer customer) {
+		if(customerRepository.existsById(customer.getId())) {
+			customerRepository.save(customer);
+			return customer;
+		}
+		return null;
+	}
+	
+	
+	public void deleteCustomer (UUID id) {
+		customerRepository.deleteById(id);
+		
+	}
+	
 }

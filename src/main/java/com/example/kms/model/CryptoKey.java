@@ -4,8 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -13,21 +20,36 @@ import java.util.UUID;
 
 
 @Entity
+@Table(name = "CRYPTOKEY")
 public class CryptoKey {
     public CryptoKey() {
     }
 
     @Id
-        private UUID KeyId;
-        @JsonProperty("keyName")
-        private String KeyName;
-        @JsonProperty("aliases")
-        private String Aliases;
-        private Date CreationDate;
-        @JsonProperty("status")
-        private String Status;
+    @Column(name = "key_id", nullable = false)
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private UUID KeyId;
+    
+    
+    @JsonProperty("keyName")
+    private String KeyName;
+    
+    
+    @JsonProperty("aliases")
+    private String Aliases;
+    
+    
+    private Date CreationDate;
+    
+    
+    @JsonProperty("status")
+    private String Status;
 
-        private SecretKey generatedKey;
+    private SecretKey generatedKey;
+    
+    @ManyToOne
+    @JoinColumn(name="customer_id", nullable=false)
+    private Customer customer;
 
 
     public CryptoKey(String keyName, String aliases, Date creationDate, String status, SecretKey generatedKey) {

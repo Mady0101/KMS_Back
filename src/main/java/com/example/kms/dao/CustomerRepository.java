@@ -2,9 +2,14 @@ package com.example.kms.dao;
 
 
 import com.example.kms.model.Customer;
-import org.springframework.data.repository.CrudRepository;
 
-public interface CustomerRepository extends CrudRepository <Customer, Integer > {
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, UUID>{
 
 
 }
