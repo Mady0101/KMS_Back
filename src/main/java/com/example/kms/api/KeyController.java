@@ -6,11 +6,15 @@ import com.example.kms.model.CryptoKey;
 import com.example.kms.model.Response;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import com.example.kms.Service.KeyService ;
 
 @CrossOrigin
 
@@ -23,13 +27,20 @@ public class KeyController {
     
     @Autowired 
     private DistributionService distributionService;
-    
+
+
+    @Autowired
+	KeyService keyService ;
+	@GetMapping(value = "/getKey/{Customer_id}")
+	public List<CryptoKey> getKeys(@PathVariable ("Customer_id") UUID id ) {return keyService.getKeyByID(id) ; }  ;
+
     
 
     @PostMapping("/generate")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public CryptoKey generateKey(@RequestBody CryptoKey cryptoKey){
         System.out.println(cryptoKey.toString());
-        return creatingKey.generateKey(cryptoKey.getKeyName(),cryptoKey.getAliases(),cryptoKey.getStatus());
+        return creatingKey.generateKey(cryptoKey.getKeyName(),cryptoKey.getAliases(),cryptoKey.getStatus(), cryptoKey.getCustomer().getId());
     }
     
     @PostMapping("/distributeKey/emailNsms")

@@ -52,12 +52,31 @@ public class CryptoKey {
     private Customer customer;
 
 
-    public CryptoKey(String keyName, String aliases, Date creationDate, String status, SecretKey generatedKey) {
+    public CryptoKey( String keyName, String aliases, Date creationDate, String status, SecretKey generatedKey, Customer customer) {
+
         KeyName = keyName;
         Aliases = aliases;
         CreationDate = creationDate;
         Status = status;
         this.generatedKey = generatedKey;
+        this.customer = customer;
+    }
+
+    public CryptoKey(String keyName, String aliases, Date creationDate, String status, SecretKey generatedKey ) {
+        KeyName = keyName;
+        Aliases = aliases;
+        CreationDate = creationDate;
+        Status = status;
+        this.generatedKey = generatedKey;
+
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public SecretKey getGeneratedKey() {
