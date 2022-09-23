@@ -8,6 +8,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Type;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -22,6 +24,7 @@ public class Customer {
     @Id
     @Column(name = "customer_id", nullable = false)
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Type(type="org.hibernate.type.UUIDCharType")
     private UUID id;
 
 
